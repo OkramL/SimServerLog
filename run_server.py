@@ -101,20 +101,22 @@ def generate_log_entry():
 
 
 def rotate_logs():
-    """Nimetab logifaili ümber vastavalt rotatsiooniskeemile (1-9)."""
-    for i in range(9, 0, -1):
+    """Nimetab logifaili ümber vastavalt rotatsiooniskeemile (1-9), kus kõige suurema numbriga fail on vanim."""
+    # Eemalda kõige vanem fail, kui see eksisteerib
+    oldest_file = os.path.join(LOG_DIR, "application.log.9")
+    if os.path.exists(oldest_file):
+        os.remove(oldest_file)
+
+    # Nihuta kõik failid üks number edasi
+    for i in range(8, 0, -1):
         old_file = os.path.join(LOG_DIR, f"application.log.{i}")
         new_file = os.path.join(LOG_DIR, f"application.log.{i + 1}")
-        if os.path.exists(new_file):
-            os.remove(new_file)  # Eemalda olemasolev fail enne ümbernimetamist
         if os.path.exists(old_file):
             os.rename(old_file, new_file)
 
     # Nimeta praegune logifail ümber application.log.1
     if os.path.exists(LOG_FILE):
         first_log = os.path.join(LOG_DIR, "application.log.1")
-        if os.path.exists(first_log):
-            os.remove(first_log)  # Eemalda olemasolev application.log.1
         os.rename(LOG_FILE, first_log)
 
 

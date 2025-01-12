@@ -17,6 +17,6 @@ Skript mis imiteerib serveri tööd kirjutades serveri tegevusi logi faili.
 Käivitades skripti jääb see lõputult tööle kirjutades iga 1-5 sekundi tagant logi faili mingi tegevuse. Samal ajal seda 
 ka konosoli näidates. Logi tehakse c:\Temp kausta nimega application.log. Kui logi fail on saavutanud skriptis määratud 
 mahu (10kB), siis tehakse sellest eraldi fail mille lõppu lisatakse .1 (application.log.1) ning logi kirjutamist 
-jätakatase jälle application.log faili. 
+jätakatase jälle application.log faili. Kõige vanem logi fail on .9 lõpuga ja kõige uuem .log ehk hetkel kasutatav fail.
 
 Igakord kui skript uuesti käivitatakse kustutatakse eelnevad logid ära ja alustatakse uuesti logide loomist.
