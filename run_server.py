@@ -4,6 +4,7 @@ from datetime import datetime
 from faker import Faker
 import os
 import shutil
+import threading
 
 # Logifaili ja kausta nimi
 LOG_DIR = "C:\\Temp"
@@ -131,10 +132,39 @@ def write_log_to_file(entry):
         log_file.write(entry + "\n")
 
 
+def manage_service_logs():
+    """Loo ja eemalda juhuslikke logifaile teenuste nimedega."""
+    while True:
+        action = random.choice(["create", "delete"])
+        service_name = random.choice(SERVICES)
+        log_file = os.path.join(LOG_DIR, f"{service_name}.log")
+        rotated_log_file = os.path.join(LOG_DIR, f"{service_name}.log.1")
+
+        if action == "create":
+            # Loo teenuse logifail ja lisa sisu
+            with open(log_file, "wb") as f:
+                f.write(os.urandom(random.randint(1024, 10 * 1024)))  # 1 KB kuni 10 KB
+            if random.choice([True, False]):
+                with open(rotated_log_file, "wb") as f:
+                    f.write(os.urandom(random.randint(1024, 10 * 1024)))
+        elif action == "delete":
+            # Eemalda teenuse logifailid
+            if os.path.exists(log_file):
+                os.remove(log_file)
+            if os.path.exists(rotated_log_file):
+                os.remove(rotated_log_file)
+
+        time.sleep(random.randint(5, 15))  # Oota 5–15 sekundit enne järgmist toimingut
+
+
 def main():
     """Käivitab logide genereerimise tsüklis juhuslike pausidega."""
     setup_log_directory()
     print(f"Logimine algas. Kirjutatakse faili: {LOG_FILE}")
+
+    # Käivita teenuse logihaldus eraldi lõimes
+    threading.Thread(target=manage_service_logs, daemon=True).start()
+
     while True:
         # Genereeri ja kirjuta logikirje
         log_entry = generate_log_entry()

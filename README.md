@@ -1,6 +1,7 @@
 # Sim Server Log
 
-Skript mis imiteerib serveri tööd kirjutades serveri tegevusi logi faili. 
+Skript mis imiteerib serveri tööd kirjutades serveri tegevusi logi faili. Lisaks teeb kausta suvalisel hetkel 
+mõngingaid teenuste logi faile mida siis ka ära ksututab. 
 
 # Paigaldus
 1. Tee PyCharmiga uus projekt läbi versiooni kontrolli (_Version Control_) File -> New Project from Version Control
