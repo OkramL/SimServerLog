@@ -5,9 +5,13 @@ Skript mis imiteerib serveri tööd kirjutades serveri tegevusi logi faili.
 # Paigaldus
 1. Tee PyCharmiga uus projekt läbi versiooni kontrolli (_Version Control_) File -> New Project from Version Control
 2. URL reale kleebi Githubi .git link (ja nupule **Clone**)
-3. Peale seda võta PyCharmis terminal ning kirjuta ``` pip install -r requirements.txt ```
+   * Usalda projekti (Trust Project)
+   * Ava endale sobivas aknas
+3. Seadista Python Interpreter -> Add New Interpreter -> Add Local Interpreter -> OK
+   * Kui küsib kas installida requirements võib lubada, kuid järgmist punkti ära tee ning käivita PyCharm uuesti
+4. Peale seda võta PyCharmis terminal (Alt + F12) ning kirjuta ``` pip install -r requirements.txt ```
    * See paigaldab [Faker](https://faker.readthedocs.io/en/master/) mooduli ja mooduli sõltuvused
-4. Järgnevaks saad käivitada skripti **run_server.py**
+5. Järgnevaks saad käivitada skripti **run_server.py**
 
 # Töötamine
 Käivitades skripti jääb see lõputult tööle kirjutades iga 1-5 sekundi tagant logi faili mingi tegevuse. Samal ajal seda 
