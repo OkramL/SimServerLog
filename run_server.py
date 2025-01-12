@@ -9,7 +9,7 @@ import shutil
 LOG_DIR = "C:\\Temp"
 LOG_FILE = os.path.join(LOG_DIR, "application.log")
 # Maksimaalne failisuurus baitides
-FILE_SIZE = 1 * 1024  # 10 KB
+FILE_SIZE = 10 * 1024  # 10 KB
 
 # Näidistegevused logimiseks
 ACTIONS = [
