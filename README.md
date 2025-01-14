@@ -10,7 +10,7 @@ mõngingaid teenuste logi faile mida siis ka ära kustutab.
    * Ava endale sobivas aknas
 3. Seadista Python Interpreter -> Add New Interpreter -> Add Local Interpreter -> OK
    * Kui küsib kas installida requirements võib lubada, kuid järgmist punkti ära tee ning käivita PyCharm uuesti
-4. Peale seda võta PyCharmis terminal (Alt + F12) ning kirjuta ``` pip install -r requirements.txt ```
+4. Kui eelmise punkti * ei teinud, siis peale seda võta PyCharmis terminal (Alt + F12) ning kirjuta ``` pip install -r requirements.txt ```
    * See paigaldab [Faker](https://faker.readthedocs.io/en/master/) mooduli ja mooduli sõltuvused
 5. Järgnevaks saad käivitada skripti **run_server.py**
 
@@ -21,3 +21,10 @@ mahu (10kB), siis tehakse sellest eraldi fail mille lõppu lisatakse .1 (applica
 jätakatase jälle application.log faili. Kõige vanem logi fail on .9 lõpuga ja kõige uuem .log ehk hetkel kasutatav fail.
 
 Igakord kui skript uuesti käivitatakse kustutatakse eelnevad logid ära ja alustatakse uuesti logide loomist.
+
+# 14.01.2025 - täiendused
+
+1. Vanad failid pakitakse kokku .gz ning lisatakse lõppu .1 kuni .9 (näiteks: **application.gz.3**)
+2. Lisatud on käsurea argument **no-gz**, mis tähendab, et vanu faile kokku ei pakita. Näiteks **application.log.6**
+3. Aktiivne fail kuhu kirjutatakse on **application.log** 
+
