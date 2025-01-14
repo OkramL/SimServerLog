@@ -10,9 +10,9 @@ import sys
 # Logifaili ja kausta nimi
 LOG_DIR = "C:\\Temp"
 LOG_FILE = os.path.join(LOG_DIR, "application.log")
-GZ_LOG_FILE = os.path.join(LOG_DIR, "application.log.gz")
+GZ_LOG_FILE = os.path.join(LOG_DIR, "application.gz")
 # Maksimaalne failisuurus baitides
-FILE_SIZE = 10 * 1024  # 10 KB
+FILE_SIZE = 0.5 * 1024  # 10 KB
 
 # Näidistegevused logimiseks
 ACTIONS = [
@@ -108,32 +108,44 @@ def generate_log_entry():
 
 def compress_file(input_file, output_file):
     """Pakkige fail gzip-vormingus."""
-    with open(input_file, 'rb') as f_in:
-        with gzip.open(output_file, 'wb') as f_out:
-            shutil.copyfileobj(f_in, f_out)
+    with gzip.open(output_file, 'wb') as gz_file:
+        with open(input_file, 'rb') as f_in:
+            gz_file.write(f_in.read())
 
 
+# TODO Siin paistab korduvat koodi olevat. Vaja lühendada.
 def rotate_logs():
     """Nimetab logifaili ümber vastavalt rotatsiooniskeemile (1-9), kus kõige suurema numbriga fail on vanim."""
-    # Eemalda kõige vanem fail, kui see eksisteerib
-    ext = ".gz" if use_gzip else ".log"
-    oldest_file = os.path.join(LOG_DIR, f"application.log{ext}.9")
-    if os.path.exists(oldest_file):
-        os.remove(oldest_file)
+    if use_gzip:
+        # Gzip-rotatsioon
+        oldest_file = os.path.join(LOG_DIR, "application.gz.9")
+        if os.path.exists(oldest_file):
+            os.remove(oldest_file)  # Eemalda kõige vanem fail
 
-    # Nihuta kõik failid üks number edasi
-    for i in range(8, 0, -1):
-        old_file = os.path.join(LOG_DIR, f"application.log{ext}.{i}")
-        new_file = os.path.join(LOG_DIR, f"application.log{ext}.{i + 1}")
-        if os.path.exists(old_file):
-            os.rename(old_file, new_file)
+        for i in range(8, 0, -1):
+            old_file = os.path.join(LOG_DIR, f"application.gz.{i}")
+            new_file = os.path.join(LOG_DIR, f"application.gz.{i + 1}")
+            if os.path.exists(old_file):
+                os.rename(old_file, new_file)
 
-    # Nimeta praegune logifail ümber ja paki gzip-vormingusse, kui kasutusel gzip
-    if os.path.exists(LOG_FILE):
-        if use_gzip:
+        if os.path.exists(LOG_FILE):
             compress_file(LOG_FILE, GZ_LOG_FILE)
-            os.rename(GZ_LOG_FILE, os.path.join(LOG_DIR, "application.log.gz.1"))
-        else:
+            os.rename(GZ_LOG_FILE, os.path.join(LOG_DIR, "application.gz.1"))
+            os.remove(LOG_FILE)
+
+    else:
+        # Tavaline log-rotatsioon
+        oldest_file = os.path.join(LOG_DIR, "application.log.9")
+        if os.path.exists(oldest_file):
+            os.remove(oldest_file)  # Eemalda kõige vanem fail
+
+        for i in range(8, 0, -1):
+            old_file = os.path.join(LOG_DIR, f"application.log.{i}")
+            new_file = os.path.join(LOG_DIR, f"application.log.{i + 1}")
+            if os.path.exists(old_file):
+                os.rename(old_file, new_file)
+
+        if os.path.exists(LOG_FILE):
             os.rename(LOG_FILE, os.path.join(LOG_DIR, "application.log.1"))
 
 
@@ -193,6 +205,4 @@ def main():
 
 
 if __name__ == "__main__":
-    print('Käsurea argument "no-gz" ei paki application.log faili kokku. Ilma argumendita pakitakse kokku.')
-    print('Vanemad failid on kas .log.1 või .gz.1 lõpuga. Millest viimane .gz.1 on kokku pakitud')
     main()
