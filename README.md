@@ -37,5 +37,5 @@ suurima numbriga.
 1. Kui teed esimest ülesannet käivita käsurealt skript: **````py run_server.py no-gz````**
 2. Kui teed teist ülesannet (esimene on valmis) käivita käsurealt skript **````py run_server````**
 
-Kui terminal või cmd on käititatud õiges kaustas, siis on Pythoni Virtual Enviroment ka aktiveerida. Selleks kirjuta: ````.venv\Script\activate````
+Kui terminal või cmd on käivitatud õiges kaustas, siis on vaja Pythoni Virtual Enviroment ka aktiveerida. Selleks kirjuta: ````.venv\Script\activate````
 **NB! Kasuta selleks TAB'i, et näpukaid poleks ja asi oleks õige.**
