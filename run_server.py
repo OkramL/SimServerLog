@@ -10,7 +10,7 @@ import sys
 # Logifaili ja kausta nimi
 LOG_DIR = "C:\\Temp"
 LOG_FILE = os.path.join(LOG_DIR, "application.log")
-GZ_LOG_FILE = os.path.join(LOG_DIR, "application.gz")
+GZ_LOG_FILE_TEMPLATE = os.path.join(LOG_DIR, "application.log.{num}.gz")
 # Maksimaalne failisuurus baitides
 FILE_SIZE = 0.5 * 1024  # 10 KB
 
@@ -113,24 +113,22 @@ def compress_file(input_file, output_file):
             gz_file.write(f_in.read())
 
 
-# TODO Siin paistab korduvat koodi olevat. Vaja lühendada.
 def rotate_logs():
     """Nimetab logifaili ümber vastavalt rotatsiooniskeemile (1-9), kus kõige suurema numbriga fail on vanim."""
     if use_gzip:
         # Gzip-rotatsioon
-        oldest_file = os.path.join(LOG_DIR, "application.gz.9")
+        oldest_file = GZ_LOG_FILE_TEMPLATE.format(num=9)
         if os.path.exists(oldest_file):
             os.remove(oldest_file)  # Eemalda kõige vanem fail
 
         for i in range(8, 0, -1):
-            old_file = os.path.join(LOG_DIR, f"application.gz.{i}")
-            new_file = os.path.join(LOG_DIR, f"application.gz.{i + 1}")
+            old_file = GZ_LOG_FILE_TEMPLATE.format(num=i)
+            new_file = GZ_LOG_FILE_TEMPLATE.format(num=i + 1)
             if os.path.exists(old_file):
                 os.rename(old_file, new_file)
 
         if os.path.exists(LOG_FILE):
-            compress_file(LOG_FILE, GZ_LOG_FILE)
-            os.rename(GZ_LOG_FILE, os.path.join(LOG_DIR, "application.gz.1"))
+            compress_file(LOG_FILE, GZ_LOG_FILE_TEMPLATE.format(num=1))
             os.remove(LOG_FILE)
 
     else:

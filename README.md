@@ -10,9 +10,10 @@ mõngingaid teenuste logi faile mida siis ka ära kustutab.
    * Ava endale sobivas aknas
 3. Seadista Python Interpreter -> Add New Interpreter -> Add Local Interpreter -> OK
    * Kui küsib kas installida requirements võib lubada, kuid järgmist punkti ära tee ning käivita PyCharm uuesti
-4. Kui eelmise punkti * ei teinud, siis peale seda võta PyCharmis terminal (Alt + F12) ning kirjuta ``` pip install -r requirements.txt ```
+4. Kui eelmise punkti * ei teinud, siis peale seda võta PyCharmis terminal (Alt + F12) ning kirjuta **````pip install -r requirements.txt````**
    * See paigaldab [Faker](https://faker.readthedocs.io/en/master/) mooduli ja mooduli sõltuvused
 5. Järgnevaks saad käivitada skripti **run_server.py**
+
 
 # Töötamine
 Käivitades skripti jääb see lõputult tööle kirjutades iga 1-5 sekundi tagant logi faili mingi tegevuse. Samal ajal seda 
@@ -28,3 +29,13 @@ Igakord kui skript uuesti käivitatakse kustutatakse eelnevad logid ära ja alus
 2. Lisatud on käsurea argument **no-gz**, mis tähendab, et vanu faile kokku ei pakita. Näiteks **application.log.6**
 3. Aktiivne fail kuhu kirjutatakse on **application.log** 
 
+# 20.01.2025 - täiendused
+1. Kokkupakitud faili malli on muudetud. See on **application.log.NUMBER.gz**, kus NUMBER ON ikka 1-9 ja vanim on 
+suurima numbriga.
+
+# ÜLESANDE TEGIJAD
+1. Kui teed esimest ülesannet käivita käsurealt skript: **````py run_server.py no-gz````**
+2. Kui teed teist ülesannet (esimene on valmis) käivita käsurealt skript **````py run_server````**
+
+Kui terminal või cmd on käititatud õiges kaustas, siis on Pythoni Virtual Enviroment ka aktiveerida. Selleks kirjuta: ````.venv\Script\activate````
+**NB! Kasuta selleks TAB'i, et näpukaid poleks ja asi oleks õige.**
