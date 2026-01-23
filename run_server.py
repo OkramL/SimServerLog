@@ -12,9 +12,9 @@ LOG_DIR = "C:\\Temp"
 LOG_FILE = os.path.join(LOG_DIR, "application.log")
 GZ_LOG_FILE_TEMPLATE = os.path.join(LOG_DIR, "application.log.{num}.gz")
 # Maksimaalne failisuurus baitides
-FILE_SIZE = 10 * 1024  # 10 KB
+FILE_SIZE = 2 * 1024  # 10 KB
 
-# Näidistegevused logimiseks
+# Logitav tegevus
 ACTIONS = [
     "User logged in",
     "User logged out",
